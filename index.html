@@ -1,41 +1,558 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Sanchareasy - technical calculators and utilities for telecom, networking, engineering and everyday technical work.">
+
+    <meta name="author"
+          content="Sanchareasy">
 
     <title>Sanchareasy - Technical Calculators & Utilities</title>
 
-    <meta name="description"
-          content="Sanchareasy - useful calculators and technical utilities for telecom, networking and engineering.">
-    <meta name="om prakash" content="Sanchareasy">
+    <!-- Master stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
+
 <body>
 
-    <h1>Sanchareasy</h1>
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
 
-    <p>
-        Technical calculators and utilities for
-        telecom, networking and engineering.
-    </p>
+    <header class="site-header">
 
-    <h2>Calculators</h2>
+        <div class="container site-header__container">
 
-    <ul>
-        <li>
-            <a href="/ofc-calculator/">
-                OFC Calculator
+            <!-- Logo -->
+            <a href="/" class="site-logo">
+                Sanchareasy
             </a>
-        </li>
 
-        <li>
-            <a href="/ip-calculator/">
-                IP Calculator
-            </a>
-        </li>
-    </ul>
+
+            <!-- Mobile menu button -->
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                onclick="toggleMenu()">
+
+                ☰
+
+            </button>
+
+
+            <!-- Navigation -->
+            <nav class="site-nav" id="main-navigation">
+
+                <ul class="site-nav__list">
+
+                    <li>
+                        <a href="/"
+                           class="site-nav__link site-nav__link--active">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#calculators"
+                           class="site-nav__link">
+                            Calculators
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#utilities"
+                           class="site-nav__link">
+                            Utilities
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#about"
+                           class="site-nav__link">
+                            About
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+         ========================================================= -->
+
+    <main>
+
+
+        <!-- =====================================================
+             HERO / INTRODUCTION
+             ===================================================== -->
+
+        <section>
+
+            <div class="container">
+
+                <div class="card">
+
+                    <div class="card__content">
+
+                        <h1>
+                            Technical Calculators & Utilities
+                        </h1>
+
+                        <p class="card__description">
+                            Sanchareasy provides practical calculators
+                            and technical utilities for telecom,
+                            networking, engineering and everyday
+                            technical work.
+                        </p>
+
+                        <div>
+
+                            <a href="#calculators"
+                               class="btn btn--primary">
+                                Explore Calculators
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CALCULATORS
+             ===================================================== -->
+
+        <section id="calculators">
+
+            <div class="container">
+
+                <h2>
+                    Calculators
+                </h2>
+
+                <p>
+                    Useful technical calculators for telecom,
+                    networking and engineering applications.
+                </p>
+
+
+                <br>
+
+
+                <div class="grid-container">
+
+
+                    <!-- OFC Calculator -->
+
+                    <article class="card">
+
+                        <div class="card__content">
+
+                            <h3 class="card__title">
+                                OFC Calculator
+                            </h3>
+
+                            <p class="card__description">
+                                Useful calculations for optical fiber
+                                communication and OFC network work.
+                            </p>
+
+                        </div>
+
+                        <div class="card__footer">
+
+                            <a href="/ofc-calculator/"
+                               class="btn btn--primary">
+                                Open Calculator
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- IP Calculator -->
+
+                    <article class="card">
+
+                        <div class="card__content">
+
+                            <h3 class="card__title">
+                                IP Calculator
+                            </h3>
+
+                            <p class="card__description">
+                                Perform useful IP addressing and
+                                networking calculations quickly.
+                            </p>
+
+                        </div>
+
+                        <div class="card__footer">
+
+                            <a href="/ip-calculator/"
+                               class="btn btn--primary">
+                                Open Calculator
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- Subnet Calculator -->
+
+                    <article class="card">
+
+                        <div class="card__content">
+
+                            <h3 class="card__title">
+                                Subnet Calculator
+                            </h3>
+
+                            <p class="card__description">
+                                Calculate subnet information,
+                                network ranges, hosts and related
+                                addressing parameters.
+                            </p>
+
+                        </div>
+
+                        <div class="card__footer">
+
+                            <span class="btn btn--disabled">
+                                Coming Soon
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- Fiber Loss Calculator -->
+
+                    <article class="card">
+
+                        <div class="card__content">
+
+                            <h3 class="card__title">
+                                Fiber Loss Calculator
+                            </h3>
+
+                            <p class="card__description">
+                                Calculate optical fiber loss,
+                                connector loss, splice loss and
+                                link-budget related parameters.
+                            </p>
+
+                        </div>
+
+                        <div class="card__footer">
+
+                            <span class="btn btn--disabled">
+                                Coming Soon
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             UTILITIES
+             ===================================================== -->
+
+        <section id="utilities">
+
+            <div class="container">
+
+                <h2>
+                    Technical Utilities
+                </h2>
+
+                <p>
+                    More practical tools for engineering,
+                    networking and technical work.
+                </p>
+
+
+                <br>
+
+
+                <div class="grid-container">
+
+
+                    <!-- PDF Merger -->
+
+                    <article class="card">
+
+                        <div class="card__content">
+
+                            <h3 class="card__title">
+                                PDF Merger
+                            </h3>
+
+                            <p class="card__description">
+                                Combine multiple PDF documents into
+                                a single PDF file quickly.
+                            </p>
+
+                        </div>
+
+                        <div class="card__footer">
+
+                            <a href="/pdf-merger/"
+                               class="btn btn--primary">
+                                Open Utility
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- Future Utility -->
+
+                    <article class="card">
+
+                        <div class="card__content">
+
+                            <h3 class="card__title">
+                                More Utilities
+                            </h3>
+
+                            <p class="card__description">
+                                Sanchareasy will continue to add
+                                useful technical and engineering
+                                utilities.
+                            </p>
+
+                        </div>
+
+                        <div class="card__footer">
+
+                            <span class="btn btn--disabled">
+                                Coming Soon
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             ABOUT
+             ===================================================== -->
+
+        <section id="about">
+
+            <div class="container">
+
+                <div class="card">
+
+                    <div class="card__content">
+
+                        <h2>
+                            About Sanchareasy
+                        </h2>
+
+                        <p class="card__description">
+                            Sanchareasy is a collection of practical
+                            calculators and technical utilities
+                            designed to make engineering and
+                            networking calculations simpler,
+                            faster and easier to understand.
+                        </p>
+
+                        <p class="card__description">
+                            The platform focuses particularly on
+                            telecom, optical fiber, IP networking
+                            and engineering-related tools.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+
+            <div class="site-footer__grid">
+
+
+                <!-- Brand -->
+
+                <div>
+
+                    <h3 class="footer-col__title">
+                        Sanchareasy
+                    </h3>
+
+                    <p>
+                        Technical calculators and utilities
+                        for telecom, networking and engineering.
+                    </p>
+
+                </div>
+
+
+                <!-- Calculators -->
+
+                <div>
+
+                    <h3 class="footer-col__title">
+                        Calculators
+                    </h3>
+
+                    <div class="footer-col__links">
+
+                        <a href="/ofc-calculator/"
+                           class="footer-col__link">
+                            OFC Calculator
+                        </a>
+
+                        <a href="/ip-calculator/"
+                           class="footer-col__link">
+                            IP Calculator
+                        </a>
+
+                        <a href="#calculators"
+                           class="footer-col__link">
+                            More Calculators
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Utilities -->
+
+                <div>
+
+                    <h3 class="footer-col__title">
+                        Utilities
+                    </h3>
+
+                    <div class="footer-col__links">
+
+                        <a href="/pdf-merger/"
+                           class="footer-col__link">
+                            PDF Merger
+                        </a>
+
+                        <a href="#utilities"
+                           class="footer-col__link">
+                            More Utilities
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="site-footer__bottom">
+
+                <p>
+                    © 2026 Sanchareasy. All rights reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         MOBILE NAVIGATION SCRIPT
+         ========================================================= -->
+
+    <script>
+
+        function toggleMenu() {
+
+            const navigation =
+                document.getElementById("main-navigation");
+
+            const button =
+                document.querySelector(".menu-toggle");
+
+            const isOpen =
+                navigation.classList.toggle("site-nav--open");
+
+            button.setAttribute(
+                "aria-expanded",
+                isOpen
+            );
+
+        }
+
+    </script>
+
 
 </body>
+
 </html>
