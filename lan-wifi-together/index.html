@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Use LAN and WiFi together – one-click fix for Windows</title>
+<meta name="description" content="Enter your office LAN details and download a script that keeps the internal network on LAN and the internet on WiFi, at the same time.">
+<style>
+:root{--bg:#f3f6f5;--card:#fff;--ink:#14282b;--mute:#52686b;--line:#cdd9d7;--accent:#0b6e6e;--warn:#b45309;--code:#0f2b2e;--codeink:#d5f2ee}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1a1c;--card:#142427;--ink:#e4f0ee;--mute:#93aaa8;--line:#274347;--accent:#4fd1c5;--warn:#f0b35a;--code:#091416;--codeink:#c9efe9}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:1.7rem;line-height:1.2;margin:0 0 6px}
+.lead{color:var(--mute);margin:0 0 22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:16px}
+label{display:block;font-weight:600;margin:12px 0 4px}
+label:first-child{margin-top:0}
+.hint{font-weight:400;color:var(--mute);font-size:.88rem}
+input,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:90px;font-family:Consolas,monospace;font-size:.95rem}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+button{font:inherit;font-weight:600;padding:11px 16px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#06201f}}
+button.alt{background:transparent;color:var(--accent)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+#err{color:var(--warn);margin-top:12px;min-height:1.2em;font-weight:600}
+pre{background:var(--code);color:var(--codeink);padding:14px;border-radius:8px;overflow-x:auto;font-size:.85rem;margin:8px 0 0}
+details summary{cursor:pointer;font-weight:600}
+ol{padding-left:20px;margin:8px 0}
+code{font-family:Consolas,monospace}
+#out{display:none}
+</style>
+</head>
+<body>
+<main>
+<h1>Use office LAN and WiFi together</h1>
+<p class="lead">Keep your internal network (CDR, CPAN, etc.) on the LAN cable and the internet on WiFi, at the same time. Fill in the details, download the script, run it as administrator.</p>
+
+<div class="card">
+<label for="subnets">Internal network addresses (one per line)
+<span class="hint">Accepts 10.20.0.0/16, 10.20.5.0 255.255.255.0, or a single IP like 10.20.5.11</span></label>
+<textarea id="subnets" placeholder="10.20.0.0/16&#10;172.16.4.0 255.255.255.0"></textarea>
+
+<label for="gw">LAN gateway <span class="hint">(the router address of your LAN, see the tip below)</span></label>
+<input id="gw" inputmode="decimal" placeholder="10.20.0.1" autocomplete="off">
+
+<div class="row">
+<div><label for="lan">LAN adapter name</label><input id="lan" value="Ethernet"></div>
+<div><label for="wifi">WiFi adapter name</label><input id="wifi" value="Wi-Fi"></div>
+</div>
+
+<div class="actions">
+<button id="gen">Generate scripts</button>
+</div>
+<div id="err" role="alert"></div>
+</div>
+
+<div class="card" id="out">
+<p style="margin-top:0"><strong>Ready.</strong> Download, then right-click the file and choose <em>Run as administrator</em>.</p>
+<div class="actions" style="margin-top:0">
+<button id="dl1">Download apply script</button>
+<button id="dl2" class="alt">Download undo script</button>
+</div>
+<details style="margin-top:14px"><summary>View the commands</summary><pre id="preview"></pre></details>
+</div>
+
+<div class="card">
+<details open><summary>Don't know your LAN gateway or adapter names?</summary>
+<ol>
+<li>Press Win + R, type <code>cmd</code>, press Enter.</li>
+<li>Type <code>ipconfig</code>. Under your LAN adapter (for example "Ethernet adapter Ethernet") note the <em>Default Gateway</em>. The adapter name is the text after "adapter".</li>
+<li>Ask your network team for the CDR/CPAN address ranges if you do not have them.</li>
+</ol></details>
+</div>
+
+<div class="card">
+<details><summary>How it works, and when it will not</summary>
+<p>Both adapters offer a default route, so Windows sends all traffic through one of them. The script gives WiFi the better priority for the internet and adds fixed routes so only your internal addresses go through the LAN. Nothing leaves your computer: this page runs in your browser and only builds a text file.</p>
+<p>It will not work if office policy blocks a second active adapter, if a VPN client forces its own routes, or if you do not have administrator rights. To go back, run the undo script.</p>
+</details>
+</div>
+</main>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var applyTxt="",undoTxt="";
+
+  function ip2n(s){
+    var p=s.trim().split(".");
+    if(p.length!==4)return null;
+    var n=0;
+    for(var i=0;i<4;i++){
+      if(!/^\d{1,3}$/.test(p[i])||+p[i]>255)return null;
+      n=n*256+ +p[i];
+    }
+    return n;
+  }
+  function n2ip(n){return [n/16777216>>>0,(n>>>16)&255,(n>>>8)&255,n&255].join(".")}
+  function maskFromBits(b){return b===0?0:(0xFFFFFFFF<<(32-b))>>>0}
+  function validMask(m){
+    var inv=(~m)>>>0;
+    return ((inv+1)&inv)===0;
+  }
+
+  function parseLine(line){
+    line=line.trim();
+    if(!line)return null;
+    var ip,mask;
+    var m=line.match(/^(\S+)\/(\d{1,2})$/);
+    if(m){
+      var bits=+m[2];
+      if(bits>32)throw new Error("Bad prefix length: "+line);
+      ip=ip2n(m[1]);mask=maskFromBits(bits);
+    }else{
+      var parts=line.split(/[\s,]+/);
+      ip=ip2n(parts[0]);
+      if(parts.length===1)mask=0xFFFFFFFF;
+      else if(parts.length===2)mask=ip2n(parts[1]);
+      else throw new Error("Cannot read: "+line);
+    }
+    if(ip===null||mask===null||!validMask(mask))throw new Error("Not a valid address or mask: "+line);
+    return {net:n2ip((ip&mask)>>>0),mask:n2ip(mask)};
+  }
+
+  function clean(name){return name.replace(/["%&|<>^]/g,"").trim()}
+
+  function build(){
+    var err=$("err");err.textContent="";
+    var routes=[];
+    try{
+      $("subnets").value.split(/\r?\n/).forEach(function(l){var r=parseLine(l);if(r)routes.push(r)});
+    }catch(e){err.textContent=e.message;return false}
+    if(!routes.length){err.textContent="Enter at least one internal network address.";return false}
+    var gw=$("gw").value.trim();
+    if(ip2n(gw)===null){err.textContent="Enter the LAN gateway as four numbers, like 10.20.0.1.";return false}
+    var lan=clean($("lan").value),wifi=clean($("wifi").value);
+    if(!lan||!wifi){err.textContent="Enter both adapter names.";return false}
+
+    var head=["@echo off","net session >nul 2>&1","if %errorlevel% neq 0 (","  echo Right-click this file and choose Run as administrator.","  pause","  exit /b 1",")",""];
+    var a=head.concat([
+      "echo Giving WiFi priority for the internet...",
+      'netsh interface ipv4 set interface "'+wifi+'" metric=10',
+      'netsh interface ipv4 set interface "'+lan+'" metric=500',
+      "echo Adding internal routes via LAN gateway "+gw+"..."
+    ]);
+    routes.forEach(function(r){a.push("route -p add "+r.net+" mask "+r.mask+" "+gw+" metric 1")});
+    a.push("echo.","echo Done. Internal networks use LAN, the internet uses WiFi.","pause");
+
+    var u=head.concat(["echo Removing internal routes..."]);
+    routes.forEach(function(r){u.push("route delete "+r.net+" mask "+r.mask)});
+    u.push("echo Restoring automatic adapter priority...",
+      'netsh interface ipv4 set interface "'+wifi+'" metric=0',
+      'netsh interface ipv4 set interface "'+lan+'" metric=0',
+      "echo.","echo Settings restored.","pause");
+
+    applyTxt=a.join("\r\n")+"\r\n";
+    undoTxt=u.join("\r\n")+"\r\n";
+    $("preview").textContent=a.slice(head.length).join("\n");
+    $("out").style.display="block";
+    $("out").scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+    return true;
+  }
+
+  function save(name,txt){
+    var b=new Blob([txt],{type:"application/octet-stream"});
+    var url=URL.createObjectURL(b),a=document.createElement("a");
+    a.href=url;a.download=name;document.body.appendChild(a);a.click();
+    document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(url)},1000);
+  }
+
+  $("gen").addEventListener("click",build);
+  $("dl1").addEventListener("click",function(){save("lan-wifi-apply.bat",applyTxt)});
+  $("dl2").addEventListener("click",function(){save("lan-wifi-undo.bat",undoTxt)});
+})();
+</script>
+</body>
+</html>
