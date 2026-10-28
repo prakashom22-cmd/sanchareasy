@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Is My IP Address? Free IP Lookup, Location & Subnet Calculator</title>
+<meta name="description" content="See your public IP address, location, ISP and ASN instantly. Learn why it differs from your router or PC IP, and use the free IPv4 subnet calculator.">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="theme-color" content="#0b7a5f">
+<link rel="canonical" href="https://sanchareasy.xyz/what-is-my-ip/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%90%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://ipapi.co" crossorigin>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SancharEasy">
+<meta property="og:title" content="What Is My IP Address? Free IP Lookup, Location & Subnet Calculator">
+<meta property="og:description" content="See your public IP address, location, ISP and ASN instantly. Learn why it differs from your router or PC IP, and use the free IPv4 subnet calculator.">
+<meta property="og:url" content="https://sanchareasy.xyz/what-is-my-ip/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="What Is My IP Address? Free IP Lookup, Location & Subnet Calculator">
+<meta name="twitter:description" content="See your public IP address, location, ISP and ASN instantly. Learn why it differs from your router or PC IP, and use the free IPv4 subnet calculator.">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebApplication", "name": "What Is My IP Address", "url": "https://sanchareasy.xyz/what-is-my-ip/", "description": "See your public IP address, location, ISP and ASN instantly. Learn why it differs from your router or PC IP, and use the free IPv4 subnet calculator.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is an IP address?", "acceptedAnswer": {"@type": "Answer", "text": "An IP address is a number that identifies your connection on the internet, like a postal address for your device or router. IPv4 looks like 117.195.164.175 and IPv6 is a longer hexadecimal address."}}, {"@type": "Question", "name": "Why is my IP address different from the one on my PC or router?", "acceptedAnswer": {"@type": "Answer", "text": "Your PC has a private IP such as 192.168.1.10, which only works inside your home network. The address shown on this page is your public IP, assigned by your ISP and shared by every device through your router using NAT."}}, {"@type": "Question", "name": "Why does my IP location show the wrong city?", "acceptedAnswer": {"@type": "Answer", "text": "IP location comes from the ISP's registration data, so it usually shows the ISP's hub or nearest exchange instead of your exact town. It is accurate to the region, rarely to the street."}}, {"@type": "Question", "name": "How do I find my private IP address on Windows, Android and iPhone?", "acceptedAnswer": {"@type": "Answer", "text": "On Windows, open Command Prompt and run ipconfig. On Android, go to Settings, Wi-Fi, then tap your network. On iPhone, go to Settings, Wi-Fi, then tap the info icon beside your network."}}, {"@type": "Question", "name": "Is it safe to show my IP address?", "acceptedAnswer": {"@type": "Answer", "text": "Websites you visit can already see it. Sharing it does not give anyone access to your device, but avoid posting it publicly together with other personal details."}}, {"@type": "Question", "name": "What is CIDR notation and a subnet mask?", "acceptedAnswer": {"@type": "Answer", "text": "CIDR such as /24 states how many bits of an IPv4 address identify the network. /24 equals the subnet mask 255.255.255.0 and gives 254 usable host addresses."}}]}]</script>
+<style>
+:root{--bg:#f3f6f4;--panel:#fff;--ink:#12231f;--mute:#5b6e68;--line:#d3ddd9;--acc:#0b7a5f;--accsoft:#dff1ea;--err:#b3261e;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1a17;--panel:#15251f;--ink:#e6f1ed;--mute:#93aaa2;--line:#25392f;--acc:#3ed6a3;--accsoft:#18372d;--err:#ff8a80;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:28px 18px 60px}
+header h1{font:600 1.15rem/1.2 "Segoe UI",system-ui,sans-serif;margin:0 0 28px;color:var(--mute);letter-spacing:.01em}
+.hero{background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--acc);border-radius:6px;padding:26px 24px}
+.hero small{color:var(--mute);display:block;margin-bottom:6px}
+.ip{font:600 clamp(1.7rem,6.5vw,3.1rem)/1.15 Consolas,"SF Mono",Menlo,monospace;word-break:break-all;margin:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+button{font:inherit;cursor:pointer;border-radius:6px;border:1px solid var(--acc);padding:9px 18px;background:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){button{color:#07251b}}
+button.ghost{background:transparent;color:var(--acc)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;margin:22px 0 0;border:1px solid var(--line);border-radius:6px;background:var(--panel);overflow:hidden}
+dl div{padding:13px 16px;border-bottom:1px solid var(--line)}
+dt{color:var(--mute);font-size:.85rem}
+dd{margin:2px 0 0;font-weight:600;word-break:break-word}
+h2{font-size:1.3rem;margin:48px 0 6px}
+p.sub{margin:0 0 16px;color:var(--mute)}
+.calc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px}
+.calc form,.calc .inputs{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+label{display:block;font-size:.85rem;color:var(--mute);margin-bottom:3px}
+input{font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);width:100%}
+.f1{flex:1 1 200px}.f2{flex:0 0 90px}
+#res{margin-top:16px}
+#res table{width:100%;border-collapse:collapse}
+#res td{padding:8px 4px;border-bottom:1px solid var(--line)}
+#res td:first-child{color:var(--mute);width:42%}
+#res td:last-child{font-family:Consolas,Menlo,monospace;font-weight:600}
+.err{color:var(--err)}
+.faq p{margin:4px 0 18px}
+footer{margin-top:44px;color:var(--mute);font-size:.85rem}
+@media (prefers-reduced-motion:no-preference){.ip{transition:opacity .2s}}
+.brand{margin:0 0 6px;font-weight:700;color:var(--acc)}
+header{margin-bottom:22px}header nav{display:flex;gap:16px;flex-wrap:wrap}header nav a{color:var(--mute);font-size:.92rem}
+h1{font-size:1.15rem;margin:0 0 10px;color:var(--mute);font-weight:600}
+a{color:var(--acc)}
+.cmp{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:.93rem}.cmp th,.cmp td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}.cmp th{color:var(--mute);font-weight:600}
+code{font-family:Consolas,Menlo,monospace;background:var(--accsoft);padding:1px 5px;border-radius:4px}
+.more{display:flex;gap:10px 18px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<noscript><p style="padding:16px;text-align:center">Turn on JavaScript to see your IP address.</p></noscript>
+<main class="wrap">
+<header><p class="brand">MyIPCheck</p><nav aria-label="Page sections"><a href="#subnet">Subnet calculator</a><a href="#private-vs-public">Private vs public IP</a><a href="#faq">FAQ</a></nav></header>
+
+<section class="hero" aria-live="polite">
+  <h1>What is my IP address?</h1>
+  <small>Your public IP address</small>
+  <p class="ip" id="ip">Detecting…</p>
+  <div class="row">
+    <button id="copy" type="button">Copy IP</button>
+    <button id="refresh" type="button" class="ghost">Check again</button>
+  </div>
+</section>
+
+<dl id="info">
+  <div><dt>IP version</dt><dd id="ver">—</dd></div>
+  <div><dt>City</dt><dd id="city">—</dd></div>
+  <div><dt>Region</dt><dd id="region">—</dd></div>
+  <div><dt>Country</dt><dd id="country">—</dd></div>
+  <div><dt>ISP / Organisation</dt><dd id="org">—</dd></div>
+  <div><dt>ASN</dt><dd id="asn">—</dd></div>
+  <div><dt>Time zone</dt><dd id="tz">—</dd></div>
+  <div><dt>Browser language</dt><dd id="lang">—</dd></div>
+  <div><dt>Platform</dt><dd id="plat">—</dd></div>
+  <div><dt>Screen</dt><dd id="scr">—</dd></div>
+</dl>
+
+<h2 id="subnet">IPv4 subnet calculator</h2>
+<p class="sub">Enter an IPv4 address and prefix length to get the network range.</p>
+<div class="calc">
+  <div class="inputs">
+    <div class="f1"><label for="a">IPv4 address</label><input id="a" value="192.168.1.10" inputmode="decimal" autocomplete="off"></div>
+    <div class="f2"><label for="c">CIDR /</label><input id="c" value="24" inputmode="numeric" maxlength="2"></div>
+    <button id="go" type="button">Calculate</button>
+  </div>
+  <div id="res"></div>
+</div>
+
+<section id="private-vs-public">
+<h2>Private IP vs public IP address</h2>
+<p class="sub">The number above is your public IP. Your phone or PC also has a private IP that this page cannot see.</p>
+<div class="calc">
+<table class="cmp"><tr><th></th><th>Private IP</th><th>Public IP</th></tr>
+<tr><td>Example</td><td>192.168.1.10</td><td>117.195.164.175</td></tr>
+<tr><td>Assigned by</td><td>Your router (DHCP)</td><td>Your ISP</td></tr>
+<tr><td>Visible to</td><td>Devices on your network only</td><td>The whole internet</td></tr>
+<tr><td>Ranges</td><td>10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16</td><td>Everything else</td></tr></table>
+<p>Your router uses NAT to share one public IP among all your devices. Browsers hide the private IP from websites, so find it with <code>ipconfig</code> on Windows or in your Wi-Fi settings.</p>
+</div>
+</section>
+<section id="faq" class="faq">
+<h2>Common questions</h2>
+  <h3>What is an IP address?</h3>
+  <p>An IP address is a number that identifies your connection on the internet, like a postal address for your device or router. IPv4 looks like 117.195.164.175 and IPv6 is a longer hexadecimal address.</p>
+  <h3>Why is my IP address different from the one on my PC or router?</h3>
+  <p>Your PC has a private IP such as 192.168.1.10, which only works inside your home network. The address shown on this page is your public IP, assigned by your ISP and shared by every device through your router using NAT.</p>
+  <h3>Why does my IP location show the wrong city?</h3>
+  <p>IP location comes from the ISP&#x27;s registration data, so it usually shows the ISP&#x27;s hub or nearest exchange instead of your exact town. It is accurate to the region, rarely to the street.</p>
+  <h3>How do I find my private IP address on Windows, Android and iPhone?</h3>
+  <p>On Windows, open Command Prompt and run ipconfig. On Android, go to Settings, Wi-Fi, then tap your network. On iPhone, go to Settings, Wi-Fi, then tap the info icon beside your network.</p>
+  <h3>Is it safe to show my IP address?</h3>
+  <p>Websites you visit can already see it. Sharing it does not give anyone access to your device, but avoid posting it publicly together with other personal details.</p>
+  <h3>What is CIDR notation and a subnet mask?</h3>
+  <p>CIDR such as /24 states how many bits of an IPv4 address identify the network. /24 equals the subnet mask 255.255.255.0 and gives 254 usable host addresses.</p>
+</section>
+<section>
+<h2>More free telecom calculators</h2>
+<p class="sub">Tools by SancharEasy for telecom engineers and students.</p>
+<nav class="more" aria-label="More calculators"><a href="/ip-calculator/">IP calculator</a> <a href="/ofc-calculator/">OFC calculator</a> <a href="/pon-planner/">PON planner</a> <a href="/inverter-calculator/">Inverter calculator</a> <a href="/">All tools</a></nav>
+</section>
+<footer>Location data from ipapi.co. Results are approximate.</footer>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+let current='';
+function set(id,v){$(id).textContent=v||'—'}
+
+async function getJSON(url){
+  const r=await fetch(url,{cache:'no-store'});
+  if(!r.ok) throw new Error(r.status);
+  return r.json();
+}
+async function detect(){
+  $('ip').textContent='Detecting…';
+  ['ver','city','region','country','org','asn','tz'].forEach(i=>set(i,''));
+  try{
+    const d=await getJSON('https://ipapi.co/json/');
+    if(d.error) throw new Error(d.reason);
+    current=d.ip;
+    $('ip').textContent=d.ip;
+    set('ver',d.version);set('city',d.city);set('region',d.region);
+    set('country',d.country_name);set('org',d.org);set('asn',d.asn);set('tz',d.timezone);
+  }catch(e1){
+    try{
+      const d=await getJSON('https://api64.ipify.org?format=json');
+      current=d.ip;
+      $('ip').textContent=d.ip;
+      set('ver',d.ip.includes(':')?'IPv6':'IPv4');
+      set('tz',Intl.DateTimeFormat().resolvedOptions().timeZone);
+    }catch(e2){
+      current='';
+      $('ip').textContent='Could not detect';
+    }
+  }
+}
+function device(){
+  set('lang',navigator.language);
+  set('plat',(navigator.userAgentData&&navigator.userAgentData.platform)||navigator.platform);
+  set('scr',screen.width+' × '+screen.height);
+}
+$('copy').onclick=async()=>{
+  if(!current) return;
+  try{await navigator.clipboard.writeText(current);$('copy').textContent='Copied'}catch(e){$('copy').textContent='Copy failed'}
+  setTimeout(()=>$('copy').textContent='Copy IP',1500);
+};
+$('refresh').onclick=detect;
+
+/* Subnet calculator */
+const toInt=a=>{const p=a.trim().split('.');if(p.length!==4||p.some(x=>!/^\d{1,3}$/.test(x)||+x>255))return null;return p.reduce((n,x)=>n*256+ +x,0)};
+const toIP=n=>[n>>>24,(n>>>16)&255,(n>>>8)&255,n&255].join('.');
+function calc(){
+  const ip=toInt($('a').value),c=$('c').value.trim();
+  const out=$('res');
+  if(ip===null||!/^\d{1,2}$/.test(c)||+c>32){out.innerHTML='<p class="err">Enter a valid IPv4 address (like 192.168.1.10) and a prefix from 0 to 32.</p>';return}
+  const p=+c,mask=p===0?0:(0xFFFFFFFF<<(32-p))>>>0,wild=(~mask)>>>0;
+  const net=(ip&mask)>>>0,bc=(net|wild)>>>0;
+  const total=Math.pow(2,32-p);
+  const usable=p>=31?(p===32?1:2):total-2;
+  const first=p>=31?net:net+1,last=p>=31?bc:bc-1;
+  const f=ip>>>24,cls=f<128?'A':f<192?'B':f<224?'C':f<240?'D (multicast)':'E (reserved)';
+  const b=ip>>>24,b2=(ip>>>16)&255;
+  const priv=b===10||(b===172&&b2>=16&&b2<=31)||(b===192&&b2===168)?'Private':'Public';
+  const rows=[['Network address',toIP(net)],['Broadcast address',toIP(bc)],['First usable host',toIP(first)],['Last usable host',toIP(last)],['Subnet mask',toIP(mask)],['Wildcard mask',toIP(wild)],['Total addresses',total.toLocaleString()],['Usable hosts',usable.toLocaleString()],['Class',cls],['Type',priv],['CIDR notation',toIP(net)+'/'+p]];
+  out.innerHTML='<table>'+rows.map(r=>'<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>').join('')+'</table>';
+}
+$('go').onclick=calc;
+['a','c'].forEach(i=>$(i).addEventListener('keydown',e=>{if(e.key==='Enter')calc()}));
+
+device();detect();calc();
+</script>
+</body>
+</html>
